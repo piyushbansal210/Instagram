@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View,Text,Button,TextInput } from 'react-native';
 
 import {auth,db} from '../../../Firebase';
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc ,doc} from "firebase/firestore";
 
 export class Register extends Component {
     constructor(props){
@@ -19,17 +19,18 @@ export class Register extends Component {
 
      async SignUp(){
         const {email,password,name}=this.state;
-        createUserWithEmailAndPassword(auth,email,password)
-        .then(()=>{
-            addDoc(collection(db,"user"),{
-                name,
-                email,
-            }) 
-        })
-        .catch((error)=>{
-            console.log('Error is: ',error)
-        })
 
+        try{
+            const authUser = await createUserWithEmailAndPassword(auth,email,password)
+            await addDoc(collection(db,"user"),{
+                userName: name,
+                userEmail: email,
+                userId: authUser.user.uid, 
+            }) 
+        }
+        catch(error){
+            console.log(error);
+        }
         
     }
 

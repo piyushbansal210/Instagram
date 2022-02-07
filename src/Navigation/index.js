@@ -14,6 +14,15 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 const Stack = createStackNavigator();
 
+import { Provider } from 'react-redux';
+import { createStore ,applyMiddleware} from 'redux';
+import rootReducer from '../redux/reducers';
+import thunk from 'redux-thunk';
+import Main from '../Component/Main';
+
+const store = createStore(rootReducer,applyMiddleware(thunk));
+
+
 export class Navigation extends Component {
 
     constructor(props) {
@@ -36,6 +45,7 @@ export class Navigation extends Component {
                     loaded:true,
                     loggedIn:true,
                 })
+                console.log(user)
             }
         })
     }
@@ -61,9 +71,9 @@ export class Navigation extends Component {
             );
         }
         return(
-            <View style={{flex:1,backgroundColor:'white',justifyContent: 'center',alignItems: 'center'}}>
-                <Text>You are logged in</Text>
-            </View>
+            <Provider store={store}>
+                <Main/>
+            </Provider>
         )
     }
 }
