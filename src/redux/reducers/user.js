@@ -1,6 +1,5 @@
 const initialUser = {
     currentUser: null,
-
 }
 
 export const user =(state = initialUser, action) => {
