@@ -8,6 +8,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import LandingPage from '../Component/auth/LandingPage';
 import Login from '../Component/auth/Login';
 import Register from '../Component/auth/Register';
+import Add from '../Component/main/Add';
 
 import {auth} from '../../Firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -73,7 +74,12 @@ export class Navigation extends Component {
         }
         return(
             <Provider store={store}>
-                <Main/>
+                <NavigationContainer>
+                    <Stack.Navigator initialRouteName="Main">
+                        <Stack.Screen name="Main" component={Main} options={{headerShown:false}} />
+                        <Stack.Screen name="Add" component={Add} options={{headerShown:true}} />
+                    </Stack.Navigator>
+                </NavigationContainer>
             </Provider>
         )
     }
