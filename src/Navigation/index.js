@@ -10,6 +10,7 @@ import Login from '../Component/auth/Login';
 import Register from '../Component/auth/Register';
 import Add from '../Component/main/Add';
 import Save from '../Component/main/Save';
+import Comment from '../Component/main/Comment';
 
 import {auth} from '../../Firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -92,8 +93,9 @@ export class Navigation extends Component {
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName="Main">
                         <Stack.Screen name="Main" component={Main} options={{headerShown:false}} />
-                        <Stack.Screen name="Add" component={Add} options={{headerShown:true}} />
-                        <Stack.Screen name="Save" component={Save} options={{headerShown:true}} />
+                        <Stack.Screen name="Add" component={Add} options={{headerShown:true}} navigation ={this.props.navigation} />
+                        <Stack.Screen name="Save" component={Save} options={{headerShown:true}} navigation ={this.props.navigation}/>
+                        <Stack.Screen name="comment" component={Comment} options={{headerShown:true}} navigation ={this.props.navigation}/>
                     </Stack.Navigator>
                 </NavigationContainer>
             </Provider>

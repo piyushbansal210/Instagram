@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View,Text,Button,TextInput } from 'react-native';
 
 import {auth,db} from '../../../Firebase';
-import { collection, addDoc ,doc} from "firebase/firestore";
+import { collection, addDoc ,doc,setDoc} from "firebase/firestore";
 
 export class Register extends Component {
     constructor(props){
@@ -22,7 +22,7 @@ export class Register extends Component {
 
         try{
             const authUser = await createUserWithEmailAndPassword(auth,email,password)
-            await addDoc(collection(db,"user"),{
+            await setDoc(doc(db,"user",auth.currentUser.uid),{
                 userName: name,
                 userEmail: email,
                 userId: authUser.user.uid, 

@@ -58,7 +58,7 @@ function Save(props) {
     }
 
     const savePostData = (downloadURL) => {
-        const user = auth.currentUser.email;
+        const user = auth.currentUser.uid;
         const ref = doc(collection(db, "posts"), user);
         const getPost = collection(ref, "userPosts");
         addDoc(getPost, {

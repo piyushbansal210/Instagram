@@ -31,7 +31,7 @@ const Search=(props)=>{
                 data={users}
                 renderItem={({item})=>(
                     <TouchableOpacity
-                        onPress={()=>props.navigation.navigate('Profile',{email:item.userEmail})}
+                        onPress={()=>props.navigation.navigate('Profile',{email:item.userEmail,id:item.userId})}
                     >
                         <Text>{item.userName}</Text>
                     </TouchableOpacity>

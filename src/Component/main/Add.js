@@ -43,9 +43,10 @@ export default function Add({navigation}) {
   //ref gives that this function or component is available to work
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.fixedRatio}>
-        <Camera style={styles.camera} type={type} ratio={'1:1'} ref={ref => setCamera(ref)} />
+       <View style={styles.fixedRatio}>
+        <Camera style={styles.camera} type={type}  ref={ref => setCamera(ref)} />
       </View>
+      
       <Button
         title="Flip Camera"
         onPress={() => {
@@ -68,7 +69,9 @@ export default function Add({navigation}) {
         }}
       />
       <Button title="Pick from gallery" onPress={() => pickImage()} />
+      
       {image && <Image source={{ uri: image }} style={{ height: 200, width: 200 }} />}
+      
       <Button title="Save" onPress={() => navigation.navigate('Save',{image}) } />
     </ScrollView>
   )
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
-    aspectRatio: 1,
+    aspectRatio: 1/1,
   },
   fixedRatio: {
     flex: 1,

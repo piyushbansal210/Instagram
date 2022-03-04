@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-import {auth } from '../../Firebase'
+import { auth } from '../../Firebase'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchUser, fetchUserPosts } from '../redux/actions';
+import { fetchUser, fetchUserPosts, fetchUserFollowing, fetchUsersData, fetchUsersFollowingPosts, clearData } from '../redux/actions';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
@@ -23,9 +23,15 @@ const Empty = () => {
 
 export class Main extends Component {
     componentDidMount() {
+        this.props.clearData();
         this.props.fetchUser();
         this.props.fetchUserPosts();
+        this.props.fetchUserFollowing();
+        this.props.fetchUsersData();
+        this.props.fetchUsersFollowingPosts();
+
     }
+
     render() {
         // console.log(this.props)
         //if we try to console log current user's name here it will show error because the current user is not yet fetched yet.
@@ -82,7 +88,7 @@ export class Main extends Component {
                     listeners={({ navigation }) => ({
                         tabPress: (event) => {
                             event.preventDefault();
-                            navigation.navigate('Profile',{email:auth.currentUser.email});
+                            navigation.navigate('Profile', { email: auth.currentUser.email, id: auth.currentUser.uid });
                         }
                     })}
                     options={{
@@ -101,8 +107,10 @@ export class Main extends Component {
 //updates the state of the user
 const mapStateToProps = (state) => ({
     currentUser: state.userState.currentUser,
+    posts: state.userState.posts,
+    following: state.userState.following,
 })
 
 //loads the function
-const mapDispatchToProps = dispatch => bindActionCreators({ fetchUser, fetchUserPosts }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ fetchUserFollowing, fetchUser, fetchUserPosts, fetchUsersData, fetchUsersFollowingPosts, clearData }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
